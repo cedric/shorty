@@ -1,0 +1,23 @@
+<%= title "Shorty", "h1" %>
+
+<% form_for @link, :url => root_path do |f| %>
+  <%= f.error_messages %>
+  <%= f.label(:url, "Original URL:") %><br/>
+  <%= f.text_field :url, :maxlength => 2048, :size => 45 %>
+  <%= f.submit 'Save' %>
+<% end %>
+
+<% if @link.valid? %>
+  <p>
+    Original:<br/>
+    <%= link_to h(@link.url), URI.escape(@link.url) %>
+  </p>
+  <p>
+    Shorty:<br/>
+    <%= link_to h(short_url(@link.token)), URI.escape(short_url(@link.token)) %>
+    <% chars_saved = @link.url.length - short_url(@link.token).length %>
+    <% if chars_saved > 0 %>
+      <br/>Saved <%= pluralize(chars_saved, 'character') %>.
+    <% end %>
+  </p>
+<% end%>

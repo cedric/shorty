@@ -1,0 +1,11 @@
+<h1>Shorty</h1>
+
+<p>
+  Original:<br/>
+  <%= link_to h(@link.url), URI.escape(@link.url) %>
+</p>
+
+<p>
+  Shorty:<br/>
+  <%= link_to h(short_url(@link.token)), URI.escape(short_url(@link.token)) %>
+</p>
