@@ -12,12 +12,12 @@ class UrlsController < ApplicationController
   end
   
   def redirect
-    url = Url.find_one(:conditions => ['BINARY urls.token=?', params[:token]])
+    url = Url.find(:first, :conditions => ['BINARY urls.token=?', params[:token]])
     unless url.nil?
       redirect_to url.url, { :status => 301 }
     else
       flash[:warning] = 'This short url does not exist.'
-      redirect_to root_url, { :status => 301 }
+      redirect_to root_url, { :status => 404 }
     end
   end
   
