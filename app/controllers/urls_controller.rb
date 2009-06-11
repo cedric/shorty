@@ -2,7 +2,7 @@ class UrlsController < ApplicationController
   
   def index
     if params[:url] && params[:url][:url]
-      @link = Url.find_or_create_by_url( params[:url][:url] )
+      @link = Url.find_or_create_by_url(params[:url][:url])
       unless @link.save
         flash[:warning] = 'There was a problem generating your short url.'
       end
@@ -12,7 +12,7 @@ class UrlsController < ApplicationController
   end
   
   def redirect
-    url = Url.find_by_token( params[:token] )
+    url = Url.find_one(:conditions => ['BINARY urls.token=?', params[:token]])
     unless url.nil?
       redirect_to url.url, { :status => 301 }
     else
