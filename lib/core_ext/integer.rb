@@ -1,5 +1,7 @@
 class Integer
   
+  BASE62_PRIMITIVES = ('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a
+  
   def base_encode(num=62)
     self.send("base#{num}_encode")
   end
@@ -18,14 +20,15 @@ class Integer
     
     def base62_encode
       unless self.eql?(0)
-        chars = ('0'..'9').to_a + ('a'..'z').to_a + ('A'..'Z').to_a
-        i = self
-        s = ''
-        while i > 0
-          i,r = i.divmod(62)
-          s = (chars[r]) + s
+        number = self
+        result = ''
+        while number > 0
+          number,r = number.divmod(BASE62_PRIMITIVES.length)
+          result = (BASE62_PRIMITIVES[r]) + result
+          # result = BASE62_PRIMITIVES[number % BASE62_PRIMITIVES.size].to_s + result
+          # number /= BASE62_PRIMITIVES.size
         end
-        s
+        result
       else
         self.to_s
       end
