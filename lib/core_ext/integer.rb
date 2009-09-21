@@ -23,10 +23,10 @@ class Integer
         number = self
         result = ''
         while number > 0
-          number,r = number.divmod(BASE62_PRIMITIVES.length)
-          result = (BASE62_PRIMITIVES[r]) + result
           # result = BASE62_PRIMITIVES[number % BASE62_PRIMITIVES.size].to_s + result
           # number /= BASE62_PRIMITIVES.size
+          number,r = number.divmod(BASE62_PRIMITIVES.length)
+          result = (BASE62_PRIMITIVES[r]) + result
         end
         result
       else

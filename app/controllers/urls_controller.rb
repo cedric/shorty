@@ -6,13 +6,13 @@ class UrlsController < ApplicationController
       unless @link.save
         flash[:warning] = 'There was a problem generating your short url.'
       end
-    else  
+    else
       @link = Url.new
     end
   end
   
   def redirect
-    url = Url.find(:first, :conditions => ['BINARY urls.token=?', params[:token]])
+    url = Url.find_one(:conditions => { :token => params[:token] })
     unless url.nil?
       redirect_to url.url, { :status => 301 }
     else
