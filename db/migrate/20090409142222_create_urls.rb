@@ -7,7 +7,7 @@ class CreateUrls < ActiveRecord::Migration
       t.timestamp :created_at
     end
     # rails column sytax doesn't support character set and collation
-    execute("ALTER TABLE short_urls MODIFY COLUMN token BINARY")
+    execute("ALTER TABLE urls MODIFY COLUMN token varchar(255) BINARY")
     add_index :urls, :url
     add_index :urls, :token
   end
