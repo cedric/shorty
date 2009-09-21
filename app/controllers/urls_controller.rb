@@ -12,7 +12,7 @@ class UrlsController < ApplicationController
   end
   
   def redirect
-    url = Url.find_one(:conditions => { :token => params[:token] })
+    url = Url.find(:first, :conditions => { :token => params[:token] })
     unless url.nil?
       redirect_to url.url, { :status => 301 }
     else
